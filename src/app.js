@@ -4,14 +4,11 @@ let info=document.querySelector('.info');
 
 import {alert, defaultModules } from "@pnotify/core";
 import * as PNotifyMobile from "@pnotify/mobile";
-import '@pnotify/core/dist/Material.css';
-import 'material-design-icons/iconfont/material-icons.css';
 
 import template from './templates/country.hbs';
 
 defaultModules.set(PNotifyMobile, {});
 let debounce = require("lodash.debounce");
-
 
 class Country {
   constructor(url) {
@@ -41,13 +38,10 @@ fetchCountry = () => {
       .then((res) => res.json())
       .then((data) => {
         //console.log(data.status);
-        if (data.status === 404) {
-          alert({
-            text: "Error!",
-          });
+        (data.status === 404)? alert({text: "Error!"}) : this.getInfo(data)
         }
-        this.getInfo(data);
-      })
+ 
+      )
       .catch(this.renderErrorMassage);
   };
 
@@ -72,7 +66,7 @@ fetchCountry = () => {
     }
     if (data.length > 10) {
       alert({
-        text: "Specify your country more precisely!",
+        text: "Enter a more precise query !",
       });
     }
   };
